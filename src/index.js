@@ -1,6 +1,6 @@
-
 const express = require('express');
 const bodyParser = require('body-parser');
+const fsUtils = require('./utils/fsUtils');
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,4 +15,9 @@ app.get('/', (_request, response) => {
 
 app.listen(PORT, () => {
   console.log('Online');
+});
+
+app.get('/talker', async (_req, res) => {
+  const data = await fsUtils.getAllFiles();
+  return res.status(200).json(data);
 });
