@@ -23,16 +23,16 @@ const getTalkerById = async (id) => {
   return talkers.find((person) => person.id === id);
 };
 
-const postTalker = async (login) => {
-  const loginTalker = {
+const loginTalker = async (login) => {
+  const loginUser = {
     token: generateToken(),
     ...login,
   };
-  return loginTalker;
+  return loginUser;
 };
 
 module.exports = {
   getAllTalkers,
   getTalkerById,
-  postTalker,
+  loginTalker,
 };

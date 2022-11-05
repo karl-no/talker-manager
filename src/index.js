@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fsUtils = require('./utils/fsUtils');
+// const emailValidation = require('./middlewares/emailValidation');
+// const passwordValidation = require('./middlewares/passwordValidation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,6 +35,6 @@ app.get('/talker/:id', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   const login = req.body;
-  const { token } = await fsUtils.postTalker(login);
+  const { token } = await fsUtils.loginTalker(login);
   return res.status(200).send({ token });
 });
