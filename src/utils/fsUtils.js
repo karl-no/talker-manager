@@ -31,8 +31,25 @@ const loginTalker = async (login) => {
   return loginUser;
 };
 
+const postTalker = async (talker) => {
+  const speaker = await getAllTalkers();
+
+  const newSpeaker = {
+    id: speaker.length + 1,
+    ...talker,
+  };
+  const arrayOfSpeakers = [...speaker, newSpeaker];
+
+  await fs.writeFile(
+    path.resolve(__dirname, TALKER_PATH),
+    JSON.stringify(arrayOfSpeakers),
+  );
+  return newSpeaker;
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   loginTalker,
+  postTalker,
 };

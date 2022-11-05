@@ -4,6 +4,11 @@ const fsUtils = require('./utils/fsUtils');
 const {
   emailValidation,
   passwordValidation,
+  authenticationValidation,
+  obligatedDataValidation,
+  infoValidation,
+  watchedAtValidation,
+  rateValidation,
 } = require('./utils/validations');
 
 const app = express();
@@ -39,4 +44,14 @@ app.post('/login', emailValidation, passwordValidation, async (req, res) => {
   const login = req.body;
   const { token } = await fsUtils.loginTalker(login);
   return res.status(200).send({ token });
+});
+
+app.post('/talker', authenticationValidation,
+obligatedDataValidation,
+infoValidation,
+watchedAtValidation,
+rateValidation, async (req, res) => {
+  const talker = req.body;
+  const post = await fsUtils.postTalker(talker);
+  return res.status(201).send(post);
 });
