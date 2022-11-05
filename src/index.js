@@ -30,3 +30,9 @@ app.get('/talker/:id', async (req, res) => {
   }
   return res.status(404).send({ message: 'Pessoa palestrante não encontrada' });
 });
+
+app.post('/login', async (req, res) => {
+  const login = req.body;
+  const { token } = await fsUtils.postTalker(login);
+  return res.status(200).send({ token });
+});
