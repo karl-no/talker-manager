@@ -66,3 +66,10 @@ rateValidation, async (req, res) => {
   const update = await fsUtils.updateTalker(Number(id), talker);
   return res.status(200).send(update);
 });
+
+app.delete('/talker/:id', authenticationValidation, async (req, res) => {
+  const { id } = req.params;
+
+  await fsUtils.deleteTalker(+id);
+  return res.status(204).json();
+});

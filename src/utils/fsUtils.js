@@ -65,10 +65,26 @@ const updateTalker = async (id, talker) => {
   return updateSpeaker;
 };
 
+const deleteTalker = async (id) => {
+  const speakers = await getAllTalkers();
+  const speakerInfo = speakers.reduce((accumulator, current) => {
+    if (current.id === id) {
+      return [...accumulator];
+    }
+    return [...accumulator, current];
+  }, []);
+
+  await fs.writeFile(
+    path.resolve(__dirname, TALKER_PATH),
+    JSON.stringify(speakerInfo),
+  );
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   loginTalker,
   postTalker,
   updateTalker,
+  deleteTalker,
 };
