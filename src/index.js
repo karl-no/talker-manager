@@ -55,3 +55,14 @@ rateValidation, async (req, res) => {
   const post = await fsUtils.postTalker(talker);
   return res.status(201).send(post);
 });
+
+app.put('/talker/:id', authenticationValidation,
+obligatedDataValidation,
+infoValidation,
+watchedAtValidation,
+rateValidation, async (req, res) => {
+  const { id } = req.params;
+  const talker = req.body;
+  const update = await fsUtils.updateTalker(Number(id), talker);
+  return res.status(200).send(update);
+});

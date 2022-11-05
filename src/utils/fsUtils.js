@@ -47,9 +47,28 @@ const postTalker = async (talker) => {
   return newSpeaker;
 };
 
+const updateTalker = async (id, talker) => {
+  const speaker = await getAllTalkers();
+  const updateSpeaker = { id, ...talker };
+
+  const speakerInfo = speaker.reduce((accumulator, current) => {
+    if (current.id === id) {
+      return [...accumulator, updateSpeaker];
+    }
+    return [...accumulator, current];
+  }, []);
+
+  await fs.writeFile(
+    path.resolve(__dirname, TALKER_PATH),
+    JSON.stringify(speakerInfo),
+  );
+  return updateSpeaker;
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   loginTalker,
   postTalker,
+  updateTalker,
 };
