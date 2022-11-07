@@ -80,6 +80,11 @@ const deleteTalker = async (id) => {
   );
 };
 
+const searchSpeaker = async (query) => {
+  const info = await getAllTalkers();
+  return info.filter(({ name }) => name.includes(query));
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
@@ -87,4 +92,5 @@ module.exports = {
   postTalker,
   updateTalker,
   deleteTalker,
+  searchSpeaker,
 };

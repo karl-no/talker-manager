@@ -1,15 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fsUtils = require('./utils/fsUtils');
-const {
-  emailValidation,
-  passwordValidation,
-  authenticationValidation,
-  obligatedDataValidation,
-  infoValidation,
-  watchedAtValidation,
-  rateValidation,
-} = require('./utils/validations');
+const emailValidation = require('./middlewares/emailValidation');
+const passwordValidation = require('./middlewares/passwordValidation');
+const authenticationValidation = require('./middlewares/authenticationValidation');
+const obligatedDataValidation = require('./middlewares/obligatedDataValidation');
+const infoValidation = require('./middlewares/infoValidation');
+const watchedAtValidation = require('./middlewares/watchedAtValidation');
+const rateValidation = require('./middlewares/rateValidation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -72,4 +70,10 @@ app.delete('/talker/:id', authenticationValidation, async (req, res) => {
 
   await fsUtils.deleteTalker(+id);
   return res.status(204).json();
+});
+
+app.get('/talker/search', authenticationValidation, async (req, res) => {
+  const { q } = req.query;
+  const speakers = await fsUtils.searchSpeaker(q);
+  return res.status(200).json(speakers);
 });
