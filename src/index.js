@@ -75,5 +75,5 @@ app.delete('/talker/:id', authenticationValidation, async (req, res) => {
 app.get('/talker/search', authenticationValidation, async (req, res) => {
   const { q } = req.query;
   const speakers = await fsUtils.searchSpeaker(q);
-  return res.status(200).json(speakers);
+  res.status(200).json(speakers);
 });
